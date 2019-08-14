@@ -1,0 +1,61 @@
+@import 'reset';
+@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
+
+$font-main: 'PT Sans', sans-serif;
+$color-white: #FFFFFF;
+$color-light-gray: #EEEEEE;
+$color-dark-gray: #B3B3B3;
+$color-black: #000000;
+$color-baby-blue: #5C9EAD;
+$color-marine-blue: #326273;
+$color-orange: #E39774;
+
+$grid-square-size: 30%;
+
+
+.container {
+    background-color: $color-light-gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    font-family: $font-main;
+    font-size: 18px;
+
+    .top-bar {
+        position: absolute;
+        top: 4px;
+    }
+
+    .bottom-bar {
+        position: absolute;
+        bottom: 5px;
+
+        .attribution {
+            margin-right: 10px;
+        }
+
+        .logos:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.game-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1%;
+    background: $color-dark-gray;
+
+    .game-square {
+        flex: 0 0 $grid-square-size;
+        background: $color-light-gray;
+        width: $grid-square-size;
+        height: $grid-square-size;
+    }
+}
