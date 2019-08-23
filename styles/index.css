@@ -86,9 +86,13 @@ table {
 }
 .game-container .game-square {
   flex: 0 0 30%;
-  background: #EEEEEE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 30%;
   height: 30%;
+  background: #EEEEEE;
+  font-size: 80px;
 }
 .game-container .game-square:hover {
   cursor: pointer;

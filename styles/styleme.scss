@@ -54,9 +54,13 @@ $grid-square-size: 30%;
 
     .game-square {
         flex: 0 0 $grid-square-size;
-        background: $color-light-gray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: $grid-square-size;
         height: $grid-square-size;
+        background: $color-light-gray;
+        font-size: 80px;
 
         &:hover {
             cursor: pointer;
