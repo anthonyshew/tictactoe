@@ -57,5 +57,9 @@ $grid-square-size: 30%;
         background: $color-light-gray;
         width: $grid-square-size;
         height: $grid-square-size;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
