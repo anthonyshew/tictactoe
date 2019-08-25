@@ -67,3 +67,29 @@ $grid-square-size: 30%;
         }
     }
 }
+
+.shake-win {
+    animation: shake-win 2000ms ease both;
+}
+
+@keyframes shake-win {
+    0%, 100% {
+            transform: rotate(0deg);
+            transform-origin: 50% 0;
+  }
+  10% {
+            transform: rotate(8deg);
+  }
+  20%, 40%, 60% {
+            transform: rotate(-10deg);
+  }
+  30%, 50%, 70% {
+            transform: rotate(10deg);
+  }
+  80% {
+            transform: rotate(-8deg);
+  }
+  90% {
+            transform: rotate(8deg);
+  }
+}
