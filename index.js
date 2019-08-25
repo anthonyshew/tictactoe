@@ -1,4 +1,4 @@
-const animationWinShakeDuration = 2000;
+const animationWinShakeDuration = 2500;
 
 let gameConfig = {
     gameOn: false,
@@ -12,8 +12,8 @@ let gameConfig = {
 
 const gameTiles = Array.from(document.querySelector(".game-container").children);
 
-const log = () => {
-    console.log(gameConfig);
+const messageBar = (message) => {
+    document.getElementById("messages").innerHTML = message;
 }
 
 const scoreboardUpdate = () => {
@@ -33,6 +33,8 @@ const matchReset = () => {
         draws: 0
     };
     gameTiles.map(elem => { elem.innerHTML = ""; elem.classList.remove("X", "O", "shake-win") });
+    messageBar("New match! Press start to duel!");
+    scoreboardUpdate();
 }
 
 const gameReset = () => {
@@ -47,6 +49,7 @@ const gameReset = () => {
             draws: gameConfig.draws
         };
         gameTiles.map(elem => { elem.innerHTML = ""; elem.classList.remove("X", "O", "shake-win") });
+        messageBar("Press start to duel!");
     }, animationWinShakeDuration)
 }
 
@@ -56,16 +59,19 @@ const gameStart = () => {
     gameConfig.isXTurn = true;
     gameConfig.gameBoard = [null, null, null, null, null, null, null, null, null];
     gameTiles.map(elem => elem.classList.remove("X", "O"))
+    messageBar("Your move, X...")
 }
 
 const turnToggle = () => {
-    gameConfig.isXTurn === true ? gameConfig.isXTurn = false : gameConfig.isXTurn = true;
+    gameConfig.isXTurn === true ? (messageBar("Your move, O..."), gameConfig.isXTurn = false) : (messageBar("Your move, X..."), gameConfig.isXTurn = true);
+
 }
 
 const xWins = () => {
     gameConfig.gameOn = false;
     gameConfig.xWins = gameConfig.xWins + 1;
     scoreboardUpdate();
+    messageBar("X Wins!");
     gameReset();
 }
 
@@ -73,6 +79,7 @@ const oWins = () => {
     gameConfig.gameOn = false;
     gameConfig.oWins = gameConfig.oWins + 1;
     scoreboardUpdate();
+    messageBar("O Wins!");
     gameReset();
 }
 
@@ -80,31 +87,39 @@ const draw = () => {
     gameConfig.gameOn = false;
     gameConfig.draws = gameConfig.draws + 1;
     scoreboardUpdate();
+    messageBar("Cat's game...");
     gameReset();
 }
 
 const animateWin = (mark1, mark2, mark3) => {
-    document.getElementById(mark1).classList.add("shake-win");
-    document.getElementById(mark2).classList.add("shake-win");
-    document.getElementById(mark3).classList.add("shake-win");
+    setTimeout(() => {
+        document.getElementById(mark1).classList.remove("X", "O");
+        document.getElementById(mark2).classList.remove("X", "O");
+        document.getElementById(mark3).classList.remove("X", "O");
+        document.getElementById(mark1).classList.add("shake-win");
+        document.getElementById(mark2).classList.add("shake-win");
+        document.getElementById(mark3).classList.add("shake-win");
+    }, 500)
+
 }
 
 const takeTurn = (e) => {
     // Check if game is on
-    if (gameConfig.gameOn === false) return console.log("Hey! We're not playing at the moment!");
+    if (gameConfig.gameOn === false) return messageBar("Hey! We're not playing at the moment!");
     // Check if game tile is already marked
-    if (e.target.innerHTML !== "") return console.log("Already marked, friend!");
+    if (e.target.innerHTML !== "") return messageBar("Already marked, friend!");
+
     let gameBoardIndex = e.target.id;
     let currentTurn = gameConfig.isXTurn === true ? "X" : "O";
     gameConfig.gameBoard[gameBoardIndex] = currentTurn;
     document.getElementById(gameBoardIndex).innerHTML = currentTurn;
     document.getElementById(gameBoardIndex).classList.add(currentTurn);
+    turnToggle();
     if (checkWinner() === "meow") {
         return draw();
     } else {
         if (checkWinner()[0]) { animateWin(checkWinner()[1], checkWinner()[2], checkWinner()[3]); currentTurn === "X" ? xWins() : oWins() };
     }
-    turnToggle();
 }
 
 const checkWinner = () => {
@@ -125,9 +140,7 @@ const checkWinner = () => {
     winTester(2, 4, 6, "Winner, diagonal right to left.")
     ].filter(elem => elem !== null)[0];
     if (winningCombination === undefined) { winningCombination = [null] };
-    if (gameBoard.every(elem => elem !== null) && winningCombination.length === 1) { console.log("Kitty cats game!"); winningCombination = "meow"; };
-    console.log(gameBoard);
-    console.log(winningCombination);
+    if (gameBoard.every(elem => elem !== null) && winningCombination.length === 1) { winningCombination = "meow"; };
     return winningCombination;
 }
 
@@ -139,7 +152,6 @@ const getViewportDimensions = () => {
     document.querySelector(".game-container").style.height = smallerDimension;
 }
 
-// Listeners listening
 gameTiles.map(elem => elem.addEventListener("click", takeTurn));
 document.getElementById("game-start").addEventListener('click', gameStart);
 document.getElementById("match-reset").addEventListener('click', matchReset);

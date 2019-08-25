@@ -64,6 +64,10 @@ table {
   position: absolute;
   top: 4px;
 }
+.container .message-bar {
+  position: absolute;
+  top: 30px;
+}
 .container .bottom-bar {
   position: absolute;
   bottom: 5px;
@@ -97,30 +101,56 @@ table {
 .game-container .game-square:hover {
   cursor: pointer;
 }
+.game-container .X {
+  color: #b30000;
+  animation: mark-select 0.5s ease;
+}
+.game-container .O {
+  color: #5C9EAD;
+  animation: mark-select 0.5s ease;
+}
 
 .shake-win {
   animation: shake-win 2000ms ease both;
 }
 
 @keyframes shake-win {
-  0%, 100% {
-    transform: rotate(0deg);
-    transform-origin: 50% 0;
+  0% {
+    transform: scale3d(1, 1, 1);
+    color: #cc9900;
   }
-  10% {
-    transform: rotate(8deg);
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
   }
-  20%, 40%, 60% {
-    transform: rotate(-10deg);
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
   }
-  30%, 50%, 70% {
-    transform: rotate(10deg);
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
   }
-  80% {
-    transform: rotate(-8deg);
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
   }
-  90% {
-    transform: rotate(8deg);
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+    color: #cc9900;
+  }
+}
+@keyframes mark-select {
+  0% {
+    transform: scale(2);
+    transform-origin: 50% 0%;
+    filter: blur(2px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    transform-origin: 50% 0%;
+    filter: blur(0px);
+    opacity: 1;
   }
 }
 
