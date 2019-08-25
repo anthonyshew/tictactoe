@@ -157,6 +157,5 @@ document.getElementById("game-start").addEventListener('click', gameStart);
 document.getElementById("match-reset").addEventListener('click', matchReset);
 document.getElementById("x-wins").addEventListener('click', xWins);
 document.getElementById("o-wins").addEventListener('click', oWins);
-document.getElementById("log").addEventListener('click', log);
 window.addEventListener('load', getViewportDimensions);
 window.addEventListener('resize', getViewportDimensions);
