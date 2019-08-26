@@ -49,6 +49,7 @@ const gameReset = () => {
             draws: gameConfig.draws
         };
         gameTiles.map(elem => { elem.innerHTML = ""; elem.classList.remove("X", "O", "shake-win") });
+        document.querySelector(".game-container").classList.remove("shake-win");
         messageBar("Press start to duel!");
     }, animationWinShakeDuration)
 }
@@ -87,11 +88,13 @@ const draw = () => {
     gameConfig.gameOn = false;
     gameConfig.draws = gameConfig.draws + 1;
     scoreboardUpdate();
+    document.querySelector(".game-container").classList.add("shake-win");
     messageBar("Cat's game...");
     gameReset();
 }
 
 const animateWin = (mark1, mark2, mark3) => {
+    document.querySelector(".container").classList.add("background-win");
     setTimeout(() => {
         document.getElementById(mark1).classList.remove("X", "O");
         document.getElementById(mark2).classList.remove("X", "O");
@@ -105,7 +108,7 @@ const animateWin = (mark1, mark2, mark3) => {
 
 const takeTurn = (e) => {
     // Check if game is on
-    if (gameConfig.gameOn === false) return messageBar("Hey! We're not playing at the moment!");
+    if (gameConfig.gameOn === false) return messageBar("Hey! We're not playing yet!");
     // Check if game tile is already marked
     if (e.target.innerHTML !== "") return messageBar("Already marked, friend!");
 
@@ -145,8 +148,8 @@ const checkWinner = () => {
 }
 
 const getViewportDimensions = () => {
-    smallerDimension = Math.min((Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * .8),
-        (Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * .8)
+    smallerDimension = Math.min((Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * .6),
+        (Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * .6)
     ) + "px";
     document.querySelector(".game-container").style.width = smallerDimension;
     document.querySelector(".game-container").style.height = smallerDimension;
